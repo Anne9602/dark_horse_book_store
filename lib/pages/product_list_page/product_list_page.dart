@@ -12,7 +12,7 @@ class ProductListPage extends StatefulWidget {
 
 class _ProductListPageState extends State<ProductListPage> {
   List<Book> books = [
-    Book(title: '고구마', price: 15000, image: 'assets/business_model_story.png'),
+    Book(title: '고구마', price: 0, image: 'assets/business_model_story.png'),
   ];
 
   @override

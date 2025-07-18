@@ -53,10 +53,21 @@ class ProductItem extends StatelessWidget {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 15),
-                Text(
-                  '₩ ${formatter.format(book.price)} 원',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
+                (book.price == 0)
+                    ? Text(
+                      '무료나눔❤️',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                    : Text(
+                      '₩ ${formatter.format(book.price)} 원',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
               ],
             ),
           ),
