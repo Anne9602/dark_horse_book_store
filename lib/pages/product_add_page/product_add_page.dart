@@ -1,3 +1,4 @@
+import 'package:dark_horse_book_store/common_widgets/appbar.dart';
 import 'package:flutter/material.dart';
 
 class ProductAddPage extends StatelessWidget {
@@ -5,6 +6,6 @@ class ProductAddPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('제품등록');
+    return Scaffold(appBar: BuildAppbar(title: "상품 등록"));
   }
 }

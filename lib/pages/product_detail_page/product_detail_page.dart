@@ -9,6 +9,6 @@ class ProductDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: BuildAppbar(title: '상품등록'));
+    return Scaffold();
   }
 }
