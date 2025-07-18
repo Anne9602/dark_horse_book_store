@@ -12,6 +12,7 @@ class BuildAppbar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,
+      iconTheme: IconThemeData(color: Colors.white),
       title: Text(
         title,
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
