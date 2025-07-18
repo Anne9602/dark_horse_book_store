@@ -1,3 +1,4 @@
+import 'package:dark_horse_book_store/model/book.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -5,10 +6,9 @@ import 'package:intl/intl.dart';
 //상품목록페이지(product_list)와 상품 등록 페이지(product_add)에 사용
 
 class ProductItem extends StatelessWidget {
-  ProductItem({super.key, required this.bookTitle, required this.price});
+  ProductItem({super.key, required this.book});
 
-  String bookTitle;
-  int price;
+  Book book;
 
   //세자리수 끊어 표기 (#,###)
   final NumberFormat formatter = NumberFormat('#,###');
@@ -38,6 +38,7 @@ class ProductItem extends StatelessWidget {
               color: Colors.brown[100],
               border: Border.all(color: Colors.brown[200]!),
             ),
+            child: Image.asset(book.image, fit: BoxFit.cover),
           ),
           SizedBox(width: 12),
           //텍스트 정보
@@ -47,13 +48,13 @@ class ProductItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  bookTitle,
+                  book.title,
                   softWrap: true,
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 15),
                 Text(
-                  '₩ ${formatter.format(price)} 원',
+                  '₩ ${formatter.format(book.price)} 원',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ],
