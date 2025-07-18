@@ -1,7 +1,8 @@
 import 'package:dark_horse_book_store/common_widgets/product_item.dart';
-import 'package:dark_horse_book_store/common_widgets/widgets.dart';
+import 'package:dark_horse_book_store/common_widgets/appbar.dart';
 import 'package:dark_horse_book_store/model/book.dart';
 import 'package:dark_horse_book_store/pages/product_add_page/product_add_page.dart';
+import 'package:dark_horse_book_store/pages/product_detail_page/product_detail_page.dart';
 import 'package:flutter/material.dart';
 
 class ProductListPage extends StatefulWidget {
@@ -48,6 +49,14 @@ class _ProductListPageState extends State<ProductListPage> {
                       child: ProductItem(book: books[index]),
                       onTap: () {
                         //상품상페이지로이동
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) =>
+                                    ProductDetailPage(book: books[index]),
+                          ),
+                        );
                       },
                     );
                   },
