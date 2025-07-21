@@ -1,4 +1,6 @@
+import 'package:dark_horse_book_store/pages/cart_page/cart_page.dart';
 import 'package:flutter/material.dart';
+import 'package:dark_horse_book_store/pages/product_list_page/product_list_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,10 +13,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Dark Horse Book Store',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFFFFFFF0)),
       ),
+      home: ProductListPage(),
     );
   }
 }
