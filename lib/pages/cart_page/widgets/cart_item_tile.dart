@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 // 장바구니 아이템 하나를 표시하는 위젯
 class CartItemTile extends StatelessWidget {
-  final Map<String, dynamic> item;    // 아이템 정보 (제목, 가격, 수량)
-  final VoidCallback onAdd;           // 수량 증가 버튼을 눌렀을 때 실행될 함수
-  final VoidCallback onRemove;        // 수량 감소 버튼을 눌렀을 때 실행될 함수
-  final VoidCallback onDelete;        // 삭제 버튼을 눌렀을 때 실행될 함수
+  final Map<String, dynamic> item; // 아이템 정보 (제목, 가격, 수량)
+  final VoidCallback onAdd; // 수량 증가 버튼을 눌렀을 때 실행될 함수
+  final VoidCallback onRemove; // 수량 감소 버튼을 눌렀을 때 실행될 함수
+  final VoidCallback onDelete; // 삭제 버튼을 눌렀을 때 실행될 함수
 
   const CartItemTile({
     super.key,
@@ -20,9 +20,7 @@ class CartItemTile extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Row(
@@ -51,7 +49,7 @@ class CartItemTile extends StatelessWidget {
                 ],
               ),
             ),
-            
+
             // 수량 조절 버튼들
             Row(
               children: [
@@ -75,7 +73,7 @@ class CartItemTile extends StatelessWidget {
                 ),
               ],
             ),
-            
+
             // 삭제 버튼
             IconButton(
               onPressed: onDelete,
@@ -87,4 +85,4 @@ class CartItemTile extends StatelessWidget {
       ),
     );
   }
-} 
+}

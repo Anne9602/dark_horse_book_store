@@ -1,4 +1,5 @@
 import 'package:dark_horse_book_store/common_widgets/appbar.dart';
+import 'package:dark_horse_book_store/common_widgets/click_button.dart';
 import 'package:dark_horse_book_store/pages/product_add_page/widgets/textformfield.dart';
 import 'package:flutter/material.dart';
 
@@ -88,26 +89,22 @@ class ProductAddPage extends StatelessWidget {
 
               //등록버튼
               SizedBox(height: 20),
-              SizedBox(
-                height: 50,
-                width: double.infinity,
+              ClickButton(
+                onPressed: () {
+                  //등록 버튼 클릭 시 상품 등록 로직 추가
+                  //1. 입력된 정보 가져오기
+                  String title = _textEditingTitleController.text;
+                  String price = _textEditingPriceController.text;
+                  String content = _textEditingContentController.text;
 
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.brown,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  onPressed: () {
-                    //등록 버튼 누르기
-                  },
-                  child: Text(
-                    '등록하기',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ),
+                  //2. 상품 등록 API 호출 또는 로컬 데이터베이스에 저장
+
+                  //3. 성공 시 알림 메시지 표시 및 페이지 이동
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text('상품이 등록되었습니다!')));
+                },
+                text: '등록하기',
               ),
             ],
           ),
