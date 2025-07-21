@@ -1,4 +1,5 @@
 import 'package:dark_horse_book_store/common_widgets/appbar.dart';
+import 'package:dark_horse_book_store/pages/product_add_page/widgets/textformfield.dart';
 import 'package:flutter/material.dart';
 
 /// 상품 등록 페이지
@@ -20,20 +21,28 @@ class ProductAddPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               //상품 이미지 등록칸
-              Container(
-                width: double.infinity,
-                height: 350,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: Colors.brown[100],
-                ),
-                child: Center(
-                  child: Text(
-                    '이미지 선택',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.brown,
+              GestureDetector(
+                onTap: () {
+                  //이미지 선택 시 갤러리 및 카메라 접근 로직 추가
+                  //1. 팝업 다이얼로그를 띄워서 갤러리 또는 카메라 선택
+
+                  //2. 선택된 이미지로 상품 이미지 업데이트
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 350,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Colors.brown[100],
+                  ),
+                  child: Center(
+                    child: Text(
+                      '이미지 선택',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.brown,
+                      ),
                     ),
                   ),
                 ),
@@ -46,7 +55,7 @@ class ProductAddPage extends StatelessWidget {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
-              _textformField(
+              textformField(
                 _textEditingTitleController,
                 '상품이름을 입력하세요',
                 TextInputAction.next,
@@ -58,7 +67,7 @@ class ProductAddPage extends StatelessWidget {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
-              _textformField(
+              textformField(
                 _textEditingPriceController,
                 '상품 가격을 입력해주세요',
                 TextInputAction.next,
@@ -70,7 +79,7 @@ class ProductAddPage extends StatelessWidget {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
-              _textformField(
+              textformField(
                 _textEditingContentController,
                 '상품 설명을 입력해주세요',
                 TextInputAction.done,
@@ -104,29 +113,6 @@ class ProductAddPage extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  //입력란 매서드
-  TextFormField _textformField(
-    controller,
-    String hintText,
-    TextInputAction inputAction, [
-    int? maxLine, //옵션파라미터
-  ]) {
-    return TextFormField(
-      controller: controller,
-      maxLines: maxLine ?? 1, //기본 한줄세팅
-      decoration: InputDecoration(
-        hintText: hintText,
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.brown[200]!, width: 2),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.brown[400]!, width: 3),
-        ),
-      ),
-      textInputAction: inputAction,
     );
   }
 }
