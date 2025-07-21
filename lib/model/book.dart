@@ -1,8 +1,10 @@
+import 'dart:io';
+
 class Book {
   String title;
   int price;
   String? content;
-  String image;
+  File image;
 
   Book({
     required this.title,

@@ -97,10 +97,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image.asset(
-                    book.image,
-                    fit: BoxFit.cover,
-                  ),
+                  child: Image.file(book.image, fit: BoxFit.cover),
                 ),
               ),
               SizedBox(height: 24),
@@ -113,7 +110,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               // 상품 가격
               Text(
                 '₩ ${formatter.format(book.price)} 원',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.brown),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.brown,
+                ),
               ),
               SizedBox(height: 16),
               // 상품 설명
@@ -134,7 +135,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   // 수량 표시
                   Text(
                     '$quantity',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.brown),
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.brown,
+                    ),
                   ),
                   // + 버튼
                   IconButton(
@@ -152,10 +157,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               ),
               SizedBox(height: 32),
               // 구매하기 버튼 (공통 위젯)
-              ClickButton(
-                text: '구매하기',
-                onPressed: _showPurchaseDialog,
-              ),
+              ClickButton(text: '구매하기', onPressed: _showPurchaseDialog),
             ],
           ),
         ),
