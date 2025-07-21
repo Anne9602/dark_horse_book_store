@@ -1,3 +1,4 @@
+import 'package:dark_horse_book_store/common_widgets/click_button.dart';
 import 'package:flutter/material.dart';
 import 'package:dark_horse_book_store/common_widgets/appbar.dart';
 import 'widgets/cart_item_tile.dart';
@@ -163,20 +164,8 @@ class _CartPageState extends State<CartPage> {
                     // 버튼 주변에 여백 추가
                     padding: const EdgeInsets.all(16.0),
                     // ElevatedButton: 입체감이 있는 버튼
-                    child: ElevatedButton(
-                      // 버튼의 스타일 설정
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.brown, // 버튼 배경색
-                        foregroundColor: Colors.white, // 버튼 텍스트 색상
-                        minimumSize: const Size(
-                          double.infinity,
-                          50,
-                        ), // 버튼 최소 크기 (가로 전체, 세로 50)
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10), // 모서리를 둥글게
-                        ),
-                      ),
-                      // 버튼을 눌렀을 때 실행될 함수
+                    child: ClickButton(
+                      text: "구매하기",
                       onPressed: () {
                         // 다이얼로그를 표시하는 메서드
                         showDialog(
@@ -221,14 +210,6 @@ class _CartPageState extends State<CartPage> {
                               ),
                         );
                       },
-                      // 버튼에 표시될 텍스트
-                      child: const Text(
-                        "구매하기",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
                     ),
                   ),
                 ],
