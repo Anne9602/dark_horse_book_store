@@ -5,6 +5,7 @@ import 'package:dark_horse_book_store/pages/product_add_page/product_add_page.da
 import 'package:dark_horse_book_store/pages/product_detail_page/product_detail_page.dart';
 import 'package:flutter/material.dart';
 
+/// 상품 목록 페이지
 class ProductListPage extends StatefulWidget {
   ProductListPage({super.key});
 
