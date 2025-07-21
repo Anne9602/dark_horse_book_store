@@ -19,8 +19,8 @@ class _ProductAddPageState extends State<ProductAddPage> {
   TextEditingController _textEditingTitleController = TextEditingController();
   TextEditingController _textEditingPriceController = TextEditingController();
   TextEditingController _textEditingContentController = TextEditingController();
+
   // 선택된 이미지 파일
-  //이미지 선택을 위한 ImagePicker
   File? selectedImage;
   final formkey = GlobalKey<FormState>();
 
