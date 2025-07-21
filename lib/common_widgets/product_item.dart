@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dark_horse_book_store/model/book.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -38,7 +40,10 @@ class ProductItem extends StatelessWidget {
               color: Colors.brown[100],
               border: Border.all(color: Colors.brown[200]!),
             ),
-            child: Image.asset(book.image, fit: BoxFit.cover),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.file(book.image, fit: BoxFit.cover),
+            ),
           ),
           SizedBox(width: 12),
           //텍스트 정보
