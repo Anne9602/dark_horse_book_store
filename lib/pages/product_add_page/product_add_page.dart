@@ -1,6 +1,7 @@
 import 'package:dark_horse_book_store/common_widgets/appbar.dart';
 import 'package:flutter/material.dart';
 
+/// 상품 등록 페이지
 class ProductAddPage extends StatelessWidget {
   ProductAddPage({super.key});
 
@@ -38,7 +39,7 @@ class ProductAddPage extends StatelessWidget {
             ),
 
             SizedBox(height: 20),
-            //상품 이름 입력란
+            //1. 상품 이름 입력란
             Text(
               '상품 이름',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -50,7 +51,7 @@ class ProductAddPage extends StatelessWidget {
               TextInputAction.next,
             ),
             SizedBox(height: 20),
-            //성품 가격 입련란
+            //2. 성품 가격 입련란
             Text(
               '상품 가격',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -62,7 +63,7 @@ class ProductAddPage extends StatelessWidget {
               TextInputAction.next,
             ),
             SizedBox(height: 20),
-            //상품 설명 입력란
+            //3. 상품 설명 입력란
             Text(
               '상품 설명',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -73,13 +74,37 @@ class ProductAddPage extends StatelessWidget {
               '상품 설명을 입력해주세요',
               TextInputAction.done,
             ),
+
+            //등록버튼
+            SizedBox(height: 20),
+            SizedBox(
+              height: 50,
+              width: double.infinity,
+
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.brown,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                onPressed: () {
+                  //등록 버튼 누르기
+                },
+                child: Text(
+                  '등록하기',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
-  //텍스트폼필드 매써드
+  //입력란 매서드
   TextFormField _textformField(
     controller,
     String hintText,
