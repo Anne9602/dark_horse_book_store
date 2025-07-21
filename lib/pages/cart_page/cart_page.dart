@@ -1,75 +1,62 @@
-// Flutter의 기본 위젯들을 사용하기 위한 import
 import 'package:flutter/material.dart';
-// 우리가 만든 CartItemTile 위젯을 가져오기 위한 import
+import 'package:dark_horse_book_store/common_widgets/appbar.dart';
 import 'widgets/cart_item_tile.dart';
 
-// 장바구니 페이지를 나타내는 위젯
-// StatefulWidget을 사용하는 이유: 장바구니 아이템의 수량이 변경되거나 아이템이 삭제될 때 화면을 다시 그려야 하기 때문
 class CartPage extends StatefulWidget {
-  // 위젯 생성자 - super.key는 부모 위젯에서 전달받은 키를 그대로 전달
   const CartPage({super.key});
 
-  // StatefulWidget은 반드시 createState() 메서드를 구현해야 함
-  // 이 메서드는 위젯의 상태를 관리하는 State 객체를 생성
   @override
   State<CartPage> createState() => _CartPageState();
 }
 
-// CartPage의 상태를 관리하는 클래스
-// State 클래스를 상속받아 위젯의 상태 변화를 처리
 class _CartPageState extends State<CartPage> {
-  // 장바구니에 담긴 책 정보를 저장하는 리스트
-  // Map<String, dynamic>은 키-값 쌍으로 데이터를 저장하는 자료구조
-  // dynamic은 어떤 타입의 값이든 저장할 수 있다는 의미
-  List<Map<String, dynamic>> cartItems = [
-    {"title": "데미안", "price": 16000, "quantity": 1},      // 책 제목, 가격, 수량
-    {"title": "어린 왕자", "price": 13500, "quantity": 1},
-    {"title": "죄와 벌", "price": 18000, "quantity": 1},
-    {"title": "1984", "price": 15000, "quantity": 1},
-    {"title": "연금술사", "price": 14000, "quantity": 1},
-  ];
+  // 장바구니에 담긴 책 정보를 저장하는 리스트 (빈 리스트로 시작)
+  List<Map<String, dynamic>> cartItems = [];
 
   // 총 금액을 계산하는 함수
-  // fold() 메서드는 리스트의 모든 요소를 순회하면서 값을 누적
-  // 0은 초기값, (sum, item) => ... 는 각 요소를 처리하는 함수
   int getTotalPrice() {
-    return cartItems.fold(0, (sum, item) => sum + item['price'] * item['quantity']);
+    return cartItems.fold(0, (sum, item) => sum + (item['price'] as int) * (item['quantity'] as int));
   }
 
-  // 위젯을 그리는 메서드 - UI를 구성하는 부분
   @override
   Widget build(BuildContext context) {
-    // Scaffold: 앱의 기본 레이아웃 구조를 제공하는 위젯
-    // 앱바, 본문, 플로팅 액션 버튼 등을 포함
     return Scaffold(
       // 배경색을 아이보리 톤으로 설정
       backgroundColor: const Color(0xFFFAF5EF),
       
-      // 앱 상단의 앱바 (제목 표시줄)
-      appBar: AppBar(
-        // 앱바에 표시될 제목
-        title: const Text("다크호스 서점", style: TextStyle(fontWeight: FontWeight.bold)),
-        // 앱바의 배경색을 브라운으로 설정
-        backgroundColor: const Color(0xFF8B4513),
-        // 앱바의 텍스트와 아이콘 색상을 흰색으로 설정
-        foregroundColor: Colors.white,
-        // 앱바 왼쪽의 뒤로가기 버튼
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            // 뒤로가기 버튼을 누르면 이전 화면으로 돌아감
-            Navigator.pop(context);
-          },
-        ),
-      ),
+      // 공통 앱바 사용
+      appBar: BuildAppbar(title: '🐴 장바구니'),
       
       // 앱의 본문 부분
       body: cartItems.isEmpty
-          ? const Center(
+          ? Center(
               // 장바구니가 비어있을 때 표시되는 메시지
-              child: Text(
-                "장바구니가 비어있습니다.",
-                style: TextStyle(fontSize: 16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.shopping_cart_outlined,
+                    size: 80,
+                    color: Colors.brown.withOpacity(0.5),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    "장바구니가 비어있습니다.",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.brown.withOpacity(0.7),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    "책을 추가해보세요!",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.brown.withOpacity(0.5),
+                    ),
+                  ),
+                ],
               ),
             )
           : Column(
@@ -123,12 +110,16 @@ class _CartPageState extends State<CartPage> {
                   padding: const EdgeInsets.all(16.0),
                   // 컨테이너의 스타일 설정
                   decoration: BoxDecoration(
-                    color: Colors.white, // 배경색
+                    color: const Color(0xFFFAF5EF), // 아이보리 톤
                     borderRadius: BorderRadius.circular(10), // 모서리를 둥글게
+                    border: Border.all(
+                      color: Colors.brown.withOpacity(0.2),
+                      width: 1,
+                    ),
                     boxShadow: [
                       // 그림자 효과
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.1), // 그림자 색상
+                        color: Colors.brown.withOpacity(0.1), // 그림자 색상
                         spreadRadius: 1, // 그림자 확산 정도
                         blurRadius: 3, // 그림자 흐림 정도
                         offset: const Offset(0, 1), // 그림자 위치 (x, y)
@@ -150,7 +141,7 @@ class _CartPageState extends State<CartPage> {
                       // 실제 총 금액 텍스트
                       Text(
                         "${getTotalPrice().toString()}원",
-                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF8B4513)),
+                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.brown),
                       ),
                     ],
                   ),
@@ -164,7 +155,7 @@ class _CartPageState extends State<CartPage> {
                   child: ElevatedButton(
                     // 버튼의 스타일 설정
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF8B4513), // 버튼 배경색
+                      backgroundColor: Colors.brown, // 버튼 배경색
                       foregroundColor: Colors.white, // 버튼 텍스트 색상
                       minimumSize: const Size(double.infinity, 50), // 버튼 최소 크기 (가로 전체, 세로 50)
                       shape: RoundedRectangleBorder(
@@ -178,13 +169,34 @@ class _CartPageState extends State<CartPage> {
                         context: context,
                         // AlertDialog: 확인/취소 버튼이 있는 팝업 창
                         builder: (context) => AlertDialog(
-                          title: const Text("구매 완료"),
-                          content: const Text("책을 구매해주셔서 감사합니다!"),
+                          backgroundColor: const Color(0xFFFAF5EF), // 아이보리 배경
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          title: Text(
+                            "구매 완료",
+                            style: TextStyle(
+                              color: Colors.brown,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          content: Text(
+                            "책을 구매해주셔서 감사합니다!",
+                            style: TextStyle(
+                              color: Colors.brown.withOpacity(0.8),
+                            ),
+                          ),
                           actions: [
                             // TextButton: 텍스트만 있는 버튼
                             TextButton(
                               onPressed: () => Navigator.pop(context), // 다이얼로그 닫기
-                              child: const Text("확인"),
+                              child: Text(
+                                "확인",
+                                style: TextStyle(
+                                  color: Colors.brown,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             )
                           ],
                         ),
@@ -201,4 +213,4 @@ class _CartPageState extends State<CartPage> {
             ),
     );
   }
-}
+} 
