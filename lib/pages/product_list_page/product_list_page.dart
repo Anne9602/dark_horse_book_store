@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dark_horse_book_store/common_widgets/product_item.dart';
 import 'package:dark_horse_book_store/common_widgets/appbar.dart';
 import 'package:dark_horse_book_store/model/book.dart';
@@ -5,6 +7,7 @@ import 'package:dark_horse_book_store/pages/product_add_page/product_add_page.da
 import 'package:dark_horse_book_store/pages/product_detail_page/product_detail_page.dart';
 import 'package:flutter/material.dart';
 
+/// 상품 목록 페이지
 class ProductListPage extends StatefulWidget {
   ProductListPage({super.key});
 
@@ -13,9 +16,7 @@ class ProductListPage extends StatefulWidget {
 }
 
 class _ProductListPageState extends State<ProductListPage> {
-  List<Book> books = [
-    Book(title: '고구마', price: 0, image: 'assets/business_model_story.png'),
-  ];
+  List<Book> books = [];
 
   @override
   Widget build(BuildContext context) {
@@ -67,15 +68,21 @@ class _ProductListPageState extends State<ProductListPage> {
     );
   }
 
-  //플로팅 버튼
+  /// 상품 등록 페이지로 이동하는 플로팅 버튼
+
   FloatingActionButton floatingButton(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () {
+      onPressed: () async {
         //상품 등록 페이지로 이동
-        Navigator.push(
+        var result = await Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => ProductAddPage()),
         );
+        if (result != null) {
+          setState(() {
+            books.add(result as Book);
+          });
+        }
       },
       backgroundColor: Colors.brown,
       foregroundColor: Colors.white,
