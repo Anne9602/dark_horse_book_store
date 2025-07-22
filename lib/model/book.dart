@@ -1,6 +1,7 @@
 import 'dart:io';
 
 class Book {
+  String id;
   String title;
   int price;
   String? content;
@@ -11,5 +12,5 @@ class Book {
     required this.price,
     this.content,
     required this.image,
-  });
+  }) : id = DateTime.now().millisecondsSinceEpoch.toString();
 }
