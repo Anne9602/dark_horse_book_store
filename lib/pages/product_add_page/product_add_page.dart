@@ -3,7 +3,7 @@ import 'package:dark_horse_book_store/common_widgets/appbar.dart';
 import 'package:dark_horse_book_store/common_widgets/click_button.dart';
 import 'package:dark_horse_book_store/model/book.dart';
 import 'package:dark_horse_book_store/pages/product_add_page/widgets/image_utils.dart';
-import 'package:dark_horse_book_store/pages/product_add_page/widgets/textform_Field.dart';
+import 'package:dark_horse_book_store/pages/product_add_page/widgets/textform_field.dart';
 import 'package:flutter/material.dart';
 
 /// 상품 등록 페이지
@@ -49,35 +49,9 @@ class _ProductAddPageState extends State<ProductAddPage> {
 
                     //2. 선택된 이미지로 상품 이미지 업데이트
                   },
-                  child: Container(
-                    width: double.infinity,
-                    height: 350,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Colors.brown[100],
-                    ),
-                    child:
-                        selectedImage == null
-                            ? Center(
-                              child: Text(
-                                '이미지 선택',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.brown,
-                                ),
-                              ),
-                            )
-                            : ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.file(
-                                selectedImage!,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                  ),
+                  child: selectedImageUpdate(),
                 ),
-
+                //입력란
                 SizedBox(height: 20),
                 //1. 상품 이름 입력란
                 Text(
@@ -142,6 +116,26 @@ class _ProductAddPageState extends State<ProductAddPage> {
                   onPressed: () {
                     if (formkey.currentState!.validate()) {
                       // 폼이 유효한 경우에만 등록 로직 실행(유효성검사)
+                      if (selectedImage == null) {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text('이미지 선택'),
+                              content: Text('이미지를 선택해주세요'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('확인'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                        return; //이미지가 없으면 등록하지 않음
+                      }
 
                       //등록 버튼 클릭 시 상품 등록 로직 추가
                       //1. 입력된 정보 가져오기
@@ -171,6 +165,34 @@ class _ProductAddPageState extends State<ProductAddPage> {
           ),
         ),
       ),
+    );
+  }
+
+  // 선택된 이미지 업데이트
+  Container selectedImageUpdate() {
+    return Container(
+      width: double.infinity,
+      height: 350,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        color: Colors.brown[100],
+      ),
+      child:
+          selectedImage == null
+              ? Center(
+                child: Text(
+                  '이미지 선택',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.brown,
+                  ),
+                ),
+              )
+              : ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.file(selectedImage!, fit: BoxFit.cover),
+              ),
     );
   }
 }
