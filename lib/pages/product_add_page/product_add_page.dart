@@ -172,7 +172,7 @@ class _ProductAddPageState extends State<ProductAddPage> {
   Container selectedImageUpdate() {
     return Container(
       width: double.infinity,
-      height: 350,
+      height: 450,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         color: Colors.brown[100],

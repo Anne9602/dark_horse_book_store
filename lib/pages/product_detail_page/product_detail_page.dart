@@ -73,38 +73,34 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           ),
           content: Text(
             '"${widget.book.title}" ${quantity}개가 장바구니에 추가되었습니다.\n이동하시겠습니까?',
-            style: TextStyle(
-              color: Colors.brown.withOpacity(0.8),
-            ),
+            style: TextStyle(color: Colors.brown.withOpacity(0.8)),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(false), // 취소
-              child: Text(
-                '취소',
-                style: TextStyle(color: Colors.brown),
-              ),
+              child: Text('취소', style: TextStyle(color: Colors.brown)),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(true), // 확인
               child: Text(
                 '확인',
-                style: TextStyle(color: Colors.brown, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],
         );
       },
     );
-    
+
     // 확인을 누른 경우: 장바구니 페이지로 이동
     if (result == true) {
       // 장바구니 페이지로 이동
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => CartPage(),
-        ),
-      );
+      Navigator.of(
+        context,
+      ).push(MaterialPageRoute(builder: (context) => CartPage()));
     }
   }
 
@@ -165,7 +161,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               // 상품 이미지 (상품 등록 페이지와 동일한 규격)
               Container(
                 width: double.infinity,
-                height: 350,
+                height: 450,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   color: Colors.brown[100],
@@ -235,14 +231,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               Row(
                 children: [
                   Expanded(
-                    child: ClickButton(text: '구매하기', onPressed: _showPurchaseDialog),
+                    child: ClickButton(
+                      text: '구매하기',
+                      onPressed: _showPurchaseDialog,
+                    ),
                   ),
                   SizedBox(width: 16),
                   Expanded(
-                    child: ClickButton(
-                      text: '장바구니',
-                      onPressed: _addToCart,
-                    ),
+                    child: ClickButton(text: '장바구니', onPressed: _addToCart),
                   ),
                 ],
               ),
