@@ -54,7 +54,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: const Color(0xFFFAF5EF), // 아이보리 배경
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
@@ -63,9 +62,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               Icon(Icons.check_circle, color: Colors.green, size: 24),
               SizedBox(width: 8),
               Text(
-                '장바구니에 담겼습니다',
+                '장바구니에 추가됨',
                 style: TextStyle(
-                  color: Colors.brown,
+                  color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -73,20 +72,27 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           ),
           content: Text(
             '"${widget.book.title}" ${quantity}개가 장바구니에 추가되었습니다.\n이동하시겠습니까?',
-            style: TextStyle(color: Colors.brown.withOpacity(0.8)),
+            style: TextStyle(color: Colors.black),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(false), // 취소
-              child: Text('취소', style: TextStyle(color: Colors.brown)),
+              child: Text(
+                '취소',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,
+                ),
+              ),
             ),
+
             TextButton(
               onPressed: () => Navigator.of(context).pop(true), // 확인
               child: Text(
                 '확인',
                 style: TextStyle(
-                  color: Colors.brown,
                   fontWeight: FontWeight.bold,
+                  color: Colors.grey[900],
                 ),
               ),
             ),
@@ -111,16 +117,28 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       builder: (context) {
         // 1차: 구매 확인 다이얼로그
         return AlertDialog(
-          title: Text('구매 확인'),
+          title: Text('구매 확인', style: TextStyle(fontWeight: FontWeight.bold)),
           content: Text('"${widget.book.title}"을(를) $quantity개 구매하시겠습니까?'),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(false), // 취소
-              child: Text('취소'),
+              child: Text(
+                '취소',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,
+                ),
+              ),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(true), // 확인
-              child: Text('확인'),
+              child: Text(
+                '확인',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey[900],
+                ),
+              ),
             ),
           ],
         );
@@ -181,11 +199,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               // 상품 가격
               Text(
                 '₩ ${formatter.format(book.price)} 원',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.brown,
-                ),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 16),
               // 상품 설명
@@ -206,11 +220,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   // 수량 표시
                   Text(
                     '$quantity',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.brown,
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   // + 버튼
                   IconButton(
