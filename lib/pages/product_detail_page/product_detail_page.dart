@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dark_horse_book_store/model/book.dart';
+import 'package:dark_horse_book_store/model/cart_manager.dart';
 import 'package:dark_horse_book_store/common_widgets/appbar.dart';
 import 'package:dark_horse_book_store/common_widgets/click_button.dart';
 import 'package:dark_horse_book_store/pages/cart_page/cart_page.dart';
@@ -36,6 +37,19 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   // 장바구니에 추가하는 함수
   void _addToCart() async {
+    // 장바구니에 추가할 상품 정보
+    final cartItem = {
+      'id': widget.book.id ?? widget.book.title, // id가 없으면 title을 대신 사용
+      'title': widget.book.title,
+      'price': widget.book.price,
+      'image': widget.book.image,
+      'quantity': quantity,
+    };
+
+    // 실제로 장바구니에 상품 추가
+    CartManager.addToCart(cartItem);
+
+    // 장바구니 추가 완료 팝업 표시
     final result = await showDialog(
       context: context,
       builder: (context) {
@@ -46,7 +60,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           ),
           title: Row(
             children: [
-              Icon(Icons.shopping_cart, color: Colors.brown, size: 24),
+              Icon(Icons.check_circle, color: Colors.green, size: 24),
               SizedBox(width: 8),
               Text(
                 '장바구니에 담겼습니다',

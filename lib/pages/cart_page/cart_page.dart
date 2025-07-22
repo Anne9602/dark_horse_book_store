@@ -1,6 +1,7 @@
 import 'package:dark_horse_book_store/common_widgets/click_button.dart';
 import 'package:flutter/material.dart';
 import 'package:dark_horse_book_store/common_widgets/appbar.dart';
+import 'package:dark_horse_book_store/model/cart_manager.dart';
 import 'widgets/cart_item_tile.dart';
 
 class CartPage extends StatefulWidget {
@@ -11,15 +12,12 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  // 장바구니에 담긴 책 정보를 저장하는 리스트 (빈 리스트로 시작)
-  List<Map<String, dynamic>> cartItems = [];
+  // CartManager에서 장바구니 아이템들을 가져오는 getter
+  List<Map<String, dynamic>> get cartItems => CartManager.getCartItems();
 
   // 총 금액을 계산하는 함수
   int getTotalPrice() {
-    return cartItems.fold(
-      0,
-      (sum, item) => sum + (item['price'] as int) * (item['quantity'] as int),
-    );
+    return CartManager.getTotalPrice();
   }
 
   @override
@@ -83,9 +81,8 @@ class _CartPageState extends State<CartPage> {
                           item: item,
                           // 수량 증가 버튼을 눌렀을 때 실행될 함수
                           onAdd: () {
-                            // setState: 위젯을 다시 그리도록 하는 메서드
                             setState(() {
-                              item['quantity']++; // 수량 1 증가
+                              CartManager.updateQuantity(index, item['quantity'] + 1);
                             });
                           },
                           // 수량 감소 버튼을 눌렀을 때 실행될 함수
@@ -93,15 +90,14 @@ class _CartPageState extends State<CartPage> {
                             setState(() {
                               // 수량이 1보다 클 때만 감소
                               if (item['quantity'] > 1) {
-                                item['quantity']--;
+                                CartManager.updateQuantity(index, item['quantity'] - 1);
                               }
                             });
                           },
                           // 삭제 버튼을 눌렀을 때 실행될 함수
                           onDelete: () {
                             setState(() {
-                              // 해당 인덱스의 아이템을 리스트에서 제거
-                              cartItems.removeAt(index);
+                              CartManager.removeFromCart(index);
                             });
                           },
                         );
