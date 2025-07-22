@@ -56,7 +56,7 @@ class CartItemTile extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Colors.brown,
+                      color: Colors.black, // 검정색
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -64,7 +64,7 @@ class CartItemTile extends StatelessWidget {
                     "₩ ${formatter.format(item['price'])} 원",
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.brown.withOpacity(0.7),
+                      color: Colors.black, // 검정색
                     ),
                   ),
                 ],
@@ -84,7 +84,7 @@ class CartItemTile extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: Colors.brown,
+                    color: Colors.black, // 검정색
                   ),
                 ),
                 IconButton(

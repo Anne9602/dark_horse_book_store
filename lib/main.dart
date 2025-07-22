@@ -19,6 +19,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFFFFFFF0)),
       ),
       home: ProductListPage(),
+      routes: {
+        '/cart': (context) => CartPage(),
+      },
     );
   }
 }

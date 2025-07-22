@@ -6,6 +6,7 @@ import 'package:dark_horse_book_store/model/book.dart';
 import 'package:dark_horse_book_store/pages/product_add_page/product_add_page.dart';
 import 'package:dark_horse_book_store/pages/product_detail_page/product_detail_page.dart';
 import 'package:flutter/material.dart';
+import 'package:dark_horse_book_store/model/book_manager.dart';
 
 /// 상품 목록 페이지
 class ProductListPage extends StatefulWidget {
@@ -16,12 +17,25 @@ class ProductListPage extends StatefulWidget {
 }
 
 class _ProductListPageState extends State<ProductListPage> {
-  List<Book> books = [];
+  // 기존: List<Book> books = [];
 
   @override
   Widget build(BuildContext context) {
+    final books = BookManager.getBooks();
     return Scaffold(
-      appBar: BuildAppbar(title: '🐴 다크호스 서점'),
+      appBar: BuildAppbar(
+        title: '🐴 다크호스 서점',
+        actions: [
+          IconButton(
+            icon: Icon(Icons.shopping_cart),
+            onPressed: () {
+              // 장바구니 페이지로 이동
+              Navigator.pushNamed(context, '/cart');
+            },
+            color: Colors.white,
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child:
@@ -80,7 +94,8 @@ class _ProductListPageState extends State<ProductListPage> {
         );
         if (result != null) {
           setState(() {
-            books.add(result as Book);
+            // books.add(result as Book);
+            BookManager.addBook(result as Book);
           });
         }
       },

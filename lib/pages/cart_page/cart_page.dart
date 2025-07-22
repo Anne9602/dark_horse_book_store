@@ -31,7 +31,21 @@ class _CartPageState extends State<CartPage> {
       backgroundColor: const Color(0xFFFAF5EF),
 
       // 공통 앱바 사용
-      appBar: BuildAppbar(title: '🐴 장바구니'),
+      appBar: BuildAppbar(
+        title: '🐴 장바구니',
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => ProductListPage()),
+                (route) => false,
+              );
+            },
+            color: Colors.white,
+          ),
+        ],
+      ),
 
       // 앱의 본문 부분
       body:
@@ -152,7 +166,7 @@ class _CartPageState extends State<CartPage> {
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Colors.brown,
+                            color: Colors.black, // 검정색
                           ),
                         ),
                       ],
@@ -210,6 +224,8 @@ class _CartPageState extends State<CartPage> {
                               ),
                         );
                         if (result == true) {
+                          // 장바구니 비우기
+                          CartManager.clearCart();
                           // 상품목록 페이지로 이동
                           Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(builder: (context) => ProductListPage()),

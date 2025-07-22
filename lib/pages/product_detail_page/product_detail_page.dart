@@ -163,6 +163,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         },
       );
       if (purchaseResult == true) {
+        // 장바구니 비우기
+        CartManager.clearCart();
         // 상품목록 페이지로 이동 (스택 모두 제거)
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => ProductListPage()),
@@ -177,7 +179,19 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     final book = widget.book;
     return Scaffold(
       // 상단 공통 AppBar
-      appBar: BuildAppbar(title: '상세페이지'),
+      appBar: BuildAppbar(
+        title: '상세페이지',
+        actions: [
+          IconButton(
+            icon: Icon(Icons.shopping_cart),
+            onPressed: () {
+              // 장바구니 페이지로 이동
+              Navigator.pushNamed(context, '/cart');
+            },
+            color: Colors.white,
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
