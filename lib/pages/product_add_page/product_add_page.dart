@@ -121,14 +121,23 @@ class _ProductAddPageState extends State<ProductAddPage> {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title: Text('이미지 선택'),
-                              content: Text('이미지를 선택해주세요'),
+                              title: Text(
+                                '이미지 선택',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              content: Text('이미지를 선택해주세요.'),
                               actions: [
                                 TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: Text('확인'),
+                                  child: Text(
+                                    '확인',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey[900],
+                                    ),
+                                  ),
                                 ),
                               ],
                             );
@@ -172,7 +181,7 @@ class _ProductAddPageState extends State<ProductAddPage> {
   Container selectedImageUpdate() {
     return Container(
       width: double.infinity,
-      height: 350,
+      height: 450,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         color: Colors.brown[100],
