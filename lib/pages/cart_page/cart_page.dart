@@ -2,6 +2,8 @@ import 'package:dark_horse_book_store/common_widgets/click_button.dart';
 import 'package:flutter/material.dart';
 import 'package:dark_horse_book_store/common_widgets/appbar.dart';
 import 'package:dark_horse_book_store/model/cart_manager.dart';
+import 'package:intl/intl.dart';
+import 'package:dark_horse_book_store/pages/product_list_page/product_list_page.dart';
 import 'widgets/cart_item_tile.dart';
 
 class CartPage extends StatefulWidget {
@@ -19,6 +21,8 @@ class _CartPageState extends State<CartPage> {
   int getTotalPrice() {
     return CartManager.getTotalPrice();
   }
+
+  final NumberFormat formatter = NumberFormat('#,###');
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +148,7 @@ class _CartPageState extends State<CartPage> {
                         ),
                         // 실제 총 금액 텍스트
                         Text(
-                          "${getTotalPrice().toString()}원",
+                          "₩ ${formatter.format(getTotalPrice())} 원",
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -162,9 +166,9 @@ class _CartPageState extends State<CartPage> {
                     // ElevatedButton: 입체감이 있는 버튼
                     child: ClickButton(
                       text: "구매하기",
-                      onPressed: () {
+                      onPressed: () async {
                         // 다이얼로그를 표시하는 메서드
-                        showDialog(
+                        final result = await showDialog(
                           context: context,
                           // AlertDialog: 확인/취소 버튼이 있는 팝업 창
                           builder:
@@ -191,9 +195,9 @@ class _CartPageState extends State<CartPage> {
                                 actions: [
                                   // TextButton: 텍스트만 있는 버튼
                                   TextButton(
-                                    onPressed:
-                                        () =>
-                                            Navigator.pop(context), // 다이얼로그 닫기
+                                    onPressed: () {
+                                      Navigator.of(context).pop(true);
+                                    },
                                     child: Text(
                                       "확인",
                                       style: TextStyle(
@@ -205,6 +209,13 @@ class _CartPageState extends State<CartPage> {
                                 ],
                               ),
                         );
+                        if (result == true) {
+                          // 상품목록 페이지로 이동
+                          Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(builder: (context) => ProductListPage()),
+                            (route) => false,
+                          );
+                        }
                       },
                     ),
                   ),

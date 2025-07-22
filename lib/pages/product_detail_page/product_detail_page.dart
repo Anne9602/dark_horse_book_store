@@ -4,6 +4,7 @@ import 'package:dark_horse_book_store/model/cart_manager.dart';
 import 'package:dark_horse_book_store/common_widgets/appbar.dart';
 import 'package:dark_horse_book_store/common_widgets/click_button.dart';
 import 'package:dark_horse_book_store/pages/cart_page/cart_page.dart';
+import 'package:dark_horse_book_store/pages/product_list_page/product_list_page.dart';
 import 'package:intl/intl.dart';
 
 // 상품 상세 페이지
@@ -146,7 +147,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     );
     // 확인을 누른 경우: 구매 완료 다이얼로그
     if (result == true) {
-      await showDialog(
+      final purchaseResult = await showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
@@ -154,13 +155,20 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             content: Text('구매가 완료되었습니다!'),
             actions: [
               TextButton(
-                onPressed: () => Navigator.of(context).pop(), // 확인
+                onPressed: () => Navigator.of(context).pop(true), // 확인
                 child: Text('확인'),
               ),
             ],
           );
         },
       );
+      if (purchaseResult == true) {
+        // 상품목록 페이지로 이동 (스택 모두 제거)
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => ProductListPage()),
+          (route) => false,
+        );
+      }
     }
   }
 
