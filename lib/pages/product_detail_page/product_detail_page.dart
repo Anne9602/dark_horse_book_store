@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dark_horse_book_store/model/book.dart';
 import 'package:dark_horse_book_store/common_widgets/appbar.dart';
 import 'package:dark_horse_book_store/common_widgets/click_button.dart';
+import 'package:dark_horse_book_store/pages/cart_page/cart_page.dart';
 import 'package:intl/intl.dart';
 
 // 상품 상세 페이지
@@ -30,6 +31,66 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       setState(() {
         quantity--;
       });
+    }
+  }
+
+  // 장바구니에 추가하는 함수
+  void _addToCart() async {
+    final result = await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: const Color(0xFFFAF5EF), // 아이보리 배경
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          title: Row(
+            children: [
+              Icon(Icons.shopping_cart, color: Colors.brown, size: 24),
+              SizedBox(width: 8),
+              Text(
+                '장바구니에 담겼습니다',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          content: Text(
+            '"${widget.book.title}" ${quantity}개가 장바구니에 추가되었습니다.\n이동하시겠습니까?',
+            style: TextStyle(
+              color: Colors.brown.withOpacity(0.8),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false), // 취소
+              child: Text(
+                '취소',
+                style: TextStyle(color: Colors.brown),
+              ),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true), // 확인
+              child: Text(
+                '확인',
+                style: TextStyle(color: Colors.brown, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+    
+    // 확인을 누른 경우: 장바구니 페이지로 이동
+    if (result == true) {
+      // 장바구니 페이지로 이동
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => CartPage(),
+        ),
+      );
     }
   }
 
@@ -156,8 +217,21 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 ],
               ),
               SizedBox(height: 32),
-              // 구매하기 버튼 (공통 위젯)
-              ClickButton(text: '구매하기', onPressed: _showPurchaseDialog),
+              // 구매하기 버튼과 장바구니 버튼
+              Row(
+                children: [
+                  Expanded(
+                    child: ClickButton(text: '구매하기', onPressed: _showPurchaseDialog),
+                  ),
+                  SizedBox(width: 16),
+                  Expanded(
+                    child: ClickButton(
+                      text: '장바구니',
+                      onPressed: _addToCart,
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
